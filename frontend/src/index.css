@@ -86,3 +86,41 @@ button.link {
   text-decoration: underline;
   padding: 4px 8px;
 }
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: #57534e;
+}
+
+select {
+  padding: 10px 12px;
+  border: 1px solid #d6d3d1;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.slots button {
+  padding: 8px 14px;
+}
+
+.ok {
+  color: #15803d;
+}
+
+.cancelled {
+  opacity: 0.5;
+}
+
+section.card {
+  margin-bottom: 24px;
+}

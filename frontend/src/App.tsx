@@ -1,25 +1,13 @@
 import { useEffect, useState } from "react";
 import { api } from "./api";
 import AuthForm, { type User } from "./AuthForm";
-
-interface Service {
-  id: number;
-  name: string;
-  duration_min: number;
-  price_cents: number;
-}
-
-interface Barber {
-  id: number;
-  name: string;
-}
+import Booking from "./Booking";
+import MyAppointments from "./MyAppointments";
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [services, setServices] = useState<Service[]>([]);
-  const [barbers, setBarbers] = useState<Barber[]>([]);
-  const [error, setError] = useState("");
+  const [version, setVersion] = useState(0);
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -32,20 +20,12 @@ export default function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    if (!user) return;
-    Promise.all([api<Service[]>("/services"), api<Barber[]>("/barbers")])
-      .then(([s, b]) => {
-        setServices(s);
-        setBarbers(b);
-      })
-      .catch((e) => setError(e.message));
-  }, [user]);
-
   function logout() {
     localStorage.removeItem("token");
     setUser(null);
   }
+
+  const refresh = () => setVersion((v) => v + 1);
 
   if (loading) return <div className="container">A carregar...</div>;
 
@@ -67,24 +47,8 @@ export default function App() {
           <button className="link" onClick={logout}>Sair</button>
         </div>
       </header>
-      {error && <p className="error">{error}</p>}
-
-      <h2>Serviços</h2>
-      <ul className="list">
-        {services.map((s) => (
-          <li key={s.id}>
-            <span>{s.name}</span>
-            <span>{s.duration_min} min · {(s.price_cents / 100).toFixed(2)} €</span>
-          </li>
-        ))}
-      </ul>
-
-      <h2>Barbeiros</h2>
-      <ul className="list">
-        {barbers.map((b) => (
-          <li key={b.id}>{b.name}</li>
-        ))}
-      </ul>
+      <Booking version={version} onChange={refresh} />
+      <MyAppointments version={version} onChange={refresh} />
     </div>
   );
 }
