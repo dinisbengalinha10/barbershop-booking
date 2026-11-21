@@ -38,3 +38,51 @@ h1 {
 .error {
   color: #b91c1c;
 }
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e7e5e4;
+}
+
+.card h2 {
+  margin: 0;
+}
+
+input {
+  padding: 10px 12px;
+  border: 1px solid #d6d3d1;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #1c1917;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #44403c;
+}
+
+button.link {
+  background: none;
+  color: #57534e;
+  text-decoration: underline;
+  padding: 4px 8px;
+}
