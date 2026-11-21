@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { pool } from "./db";
 import { authRouter } from "./auth";
+import { catalogRouter } from "./catalog";
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.get("/api/db-health", async (_req, res) => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api", catalogRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`API a correr em http://localhost:${PORT}`));
