@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { pool } from "./db";
+import { authRouter } from "./auth";
 
 const app = express();
 app.use(cors());
@@ -20,6 +21,8 @@ app.get("/api/db-health", async (_req, res) => {
     res.status(500).json({ status: "erro" });
   }
 });
+
+app.use("/api/auth", authRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`API a correr em http://localhost:${PORT}`));
